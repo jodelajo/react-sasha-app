@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import Signup from "../Signup";
 import styles from './App.module.css'
 import { AuthProvider } from '../../contexts/AuthContext'
+import { Routes, Route } from 'react-router-dom'
 
 
 function App() {
@@ -9,10 +10,13 @@ function App() {
     <AuthProvider>
       <Container className={styles.container}>
         <div className={styles.wrapper}>
-          <Signup />
+          <Routes>
+          <Route path="/" element={<Signup />} />
+          </Routes>
         </div>
       </Container>
     </AuthProvider>
+
   )
 }
 
