@@ -28,8 +28,9 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true)
     
 
-    function signup(email, password) {
+    function signup( email, password) {
         createUserWithEmailAndPassword(auth, email, password)
+
     }
 
 
@@ -45,20 +46,22 @@ export function AuthProvider({ children }) {
         return sendPasswordResetEmail(auth, email)
     }
 
+
     function emailUpdate(email) {
-        console.log('update email')
+        // console.log('update email')
         return updateEmail(currentUser, email)
     }
 
 
     function passwordUpdate(password) {
-        console.log('update password')
+        // console.log('update password')
         return updatePassword(currentUser, password)
     }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
+            // console.log(currentUser)
             setLoading(false)
         })
         return unsubscribe

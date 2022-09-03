@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { Card, Button, Form, Alert } from 'react-bootstrap'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { Link, useNavigate } from "react-router-dom";
+import {  updateProfile } from 'firebase/auth'
 
 
 export default function UpdateProfile() {
+    const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -25,23 +27,20 @@ export default function UpdateProfile() {
         setLoading(true)
         setError('')
         setMessage('')
-
+        if (nameRef.current.value !== currentUser.displayName) {
+            promises.push(updateProfile(currentUser, {
+                displayName: nameRef.current.value}))
+        }
         if (emailRef.current.value !== currentUser.email) {
-            console.log('current user email', currentUser.email)
-            console.log('email ref', emailRef.current.value)
-            console.log("promises update", promises)
             promises.push(emailUpdate(emailRef.current.value))
         }
         if (passwordRef.current.value) {
-            console.log('password ref', passwordRef.current.value)
             promises.push(passwordUpdate(passwordRef.current.value))
         }
 
         Promise.all(promises).then(() => {
-            console.log("promises", promises)
             navigate("/")
         }).catch(() => {
-            console.log("promises error", promises)
             setError("Failed to update account")
         }).finally(() => {
             setLoading(false)
@@ -59,6 +58,14 @@ export default function UpdateProfile() {
                     {error && <Alert variant='danger'> {error} </Alert>}
                     {message && <Alert variant='success'> {message} </Alert>}
                     <Form onSubmit={handlerSubmit}>
+                    <Form.Group id="name">
+                            <Form.Label>
+                                Name
+                            </Form.Label>
+                            <Form.Control type="text" ref={nameRef} required 
+                            defaultValue={currentUser.displayName}
+                            />
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>
                                 Email
