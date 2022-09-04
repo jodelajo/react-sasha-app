@@ -1,5 +1,9 @@
-
+h1 {
+    width: 100%;
+    text-align: center;
+}
 .buttonWrapper {
+    margin-top: 2rem;
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -7,7 +11,7 @@
 
 .button {
     width: 40%;
-    background-color: blue;
+    background-color: rgb(255, 60, 0);
     color: white;
     padding: .5rem 1rem;
     border-radius: 4px;

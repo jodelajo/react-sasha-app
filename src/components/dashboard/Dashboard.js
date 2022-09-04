@@ -12,6 +12,7 @@ import {
 } from '@firebase/firestore'
 import styles from './Dashboard.module.css'
 import { Button } from 'react-bootstrap'
+import MyLink from '../links/Link'
 
 export default function Dashboard() {
     const { currentUser } = useAuth()
@@ -21,14 +22,12 @@ export default function Dashboard() {
     const [newName, setNewName] = useState('')
     const [newAge, setNewAge] = useState(0)
     const usersRef = collection(db, "users")
-    const coursesRef = collection(db, "vakken")
+    const coursesRef = collection(db, "courses")
 
     // console.log(coursesRef)
     console.log('current user', currentUser)
-    // console.log(users)
-
-
-
+    console.log('db', db)
+    console.log(users)
 
     const createUser = async () => {
         console.log(newName)
@@ -69,8 +68,8 @@ export default function Dashboard() {
         <div>
             <h1>Project {currentUser.displayName}</h1>
             <div className={styles.buttonWrapper}>
-                <Link type="button" className={styles.button} to="/courses">Vakken</Link>
-                <Link type="button" className={styles.button} to="/profile">profiel</Link>
+                {MyLink("button", "Vakken", "/courses")}
+                {MyLink("button", "Profiel", "/profile")}
             </div>
             <div className={styles.createWrapper}>
                 <input placeholder='name' onChange={(e) => {
@@ -90,8 +89,8 @@ export default function Dashboard() {
                             <input placeholder='name' onChange={(e) => {
                                 setNewName(e.target.value)
                             }} />
-                            <Button onClick={() => updateUser(user.id, newName)}>Change Name</Button>
-                            <Button onClick={() => deleteUser(user.id)}>Delete user</Button>
+                            <button onClick={() => updateUser(user.id, newName)}>Change Name</button>
+                            <button onClick={() => deleteUser(user.id)}>Delete user</button>
                         </div>
                     )
                 })}

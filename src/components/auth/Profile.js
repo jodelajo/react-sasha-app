@@ -26,7 +26,7 @@ export default function Dashboard() {
         <div>
             <Link type="button" to="/">Dashboard</Link>
             <Card>
-                <Card.Body>
+                <Card.Body className='text-dark'>
                     <h2 className='text-center mb-4'>
                         Profile
                     </h2>
